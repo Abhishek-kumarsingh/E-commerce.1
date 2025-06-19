@@ -1,5 +1,6 @@
 package com.ecommerce.entity;
 
+import com.ecommerce.entity.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -221,10 +222,6 @@ public class User implements UserDetails {
                 ", isActive=" + isActive +
                 '}';
     }
-}
-
-enum Role {
-    USER, ADMIN, MODERATOR
 }
 
 @Embeddable

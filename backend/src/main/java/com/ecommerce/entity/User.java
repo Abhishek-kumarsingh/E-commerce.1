@@ -231,38 +231,41 @@ enum Role {
 class UserPreferences {
     @Column(name = "currency", length = 3)
     private String currency = "USD";
-    
+
     @Column(name = "language", length = 5)
     private String language = "en";
-    
+
     @Column(name = "theme")
     private String theme = "light";
-    
+
     @Column(name = "email_notifications")
     private Boolean emailNotifications = true;
-    
+
     @Column(name = "sms_notifications")
     private Boolean smsNotifications = false;
-    
+
     @Column(name = "push_notifications")
     private Boolean pushNotifications = true;
-    
+
+    // Constructors
+    public UserPreferences() {}
+
     // Getters and Setters
     public String getCurrency() { return currency; }
     public void setCurrency(String currency) { this.currency = currency; }
-    
+
     public String getLanguage() { return language; }
     public void setLanguage(String language) { this.language = language; }
-    
+
     public String getTheme() { return theme; }
     public void setTheme(String theme) { this.theme = theme; }
-    
+
     public Boolean getEmailNotifications() { return emailNotifications; }
     public void setEmailNotifications(Boolean emailNotifications) { this.emailNotifications = emailNotifications; }
-    
+
     public Boolean getSmsNotifications() { return smsNotifications; }
     public void setSmsNotifications(Boolean smsNotifications) { this.smsNotifications = smsNotifications; }
-    
+
     public Boolean getPushNotifications() { return pushNotifications; }
     public void setPushNotifications(Boolean pushNotifications) { this.pushNotifications = pushNotifications; }
 }

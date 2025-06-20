@@ -189,6 +189,12 @@ spring:
       ddl-auto: create-drop
     show-sql: true
 
+  # MongoDB for dev (embedded or local)
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/ecommerce_products_dev
+      auto-index-creation: true
+
 logging:
   level:
     root: INFO

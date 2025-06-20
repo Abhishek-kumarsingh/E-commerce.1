@@ -172,27 +172,23 @@ spring:
   config:
     activate:
       on-profile: dev
-  
+
+  # Use PostgreSQL for dev profile as well
   datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: 
-  
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-  
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/ecommerce_db}
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:9934}
+    driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
 
-  # MongoDB for dev (embedded or local)
+  # MongoDB for dev
   data:
     mongodb:
-      uri: mongodb://localhost:27017/ecommerce_products_dev
+      uri: ${MONGODB_URI:mongodb://localhost:27017/ecommerce_products}
       auto-index-creation: true
 
 logging:

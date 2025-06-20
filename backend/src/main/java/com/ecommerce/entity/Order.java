@@ -283,7 +283,7 @@ public class Order {
 }
 
 @Embeddable
-class AddressInfo {
+public class AddressInfo {
     private String name;
     private String street;
     private String apartment;

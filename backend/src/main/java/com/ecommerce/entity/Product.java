@@ -8,6 +8,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -144,7 +145,7 @@ public class Product {
         if (!hasDiscount()) return BigDecimal.ZERO;
         
         BigDecimal discount = originalPrice.subtract(price);
-        return discount.divide(originalPrice, 2, BigDecimal.ROUND_HALF_UP)
+        return discount.divide(originalPrice, 2, RoundingMode.HALF_UP)
                       .multiply(BigDecimal.valueOf(100));
     }
     

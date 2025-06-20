@@ -3,7 +3,6 @@ package com.ecommerce.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -31,7 +30,6 @@ public class FileStorageService {
     private String allowedTypes;
     
     private static final List<String> IMAGE_TYPES = Arrays.asList("jpg", "jpeg", "png", "gif", "webp");
-    private static final List<String> DOCUMENT_TYPES = Arrays.asList("pdf", "doc", "docx", "txt");
     
     // File upload operations
     public FileUploadResult uploadFile(MultipartFile file, String category) {
@@ -187,10 +185,6 @@ public class FileStorageService {
     
     private boolean isImageFile(String extension) {
         return IMAGE_TYPES.contains(extension.toLowerCase());
-    }
-    
-    private boolean isDocumentFile(String extension) {
-        return DOCUMENT_TYPES.contains(extension.toLowerCase());
     }
     
     private String generateUniqueFileName(String originalFileName) {

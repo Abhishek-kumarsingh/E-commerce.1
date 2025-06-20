@@ -8,10 +8,21 @@ if %ERRORLEVEL% == 0 (
     echo Using Maven...
     mvn spring-boot:run -Dspring-boot.run.profiles=dev
 ) else (
-    echo Maven not found. Please install Maven or use VS Code to run the application.
-    echo You can:
-    echo 1. Install Maven: choco install maven
-    echo 2. Or use VS Code: Open EcommerceApplication.java and click "Run Java"
-    echo 3. Or restart your terminal after Maven installation
-    pause
+    echo Maven not found. Trying alternative methods...
+
+    REM Try to find Maven in common locations
+    if exist "C:\Program Files\Apache\maven\bin\mvn.cmd" (
+        echo Found Maven in Program Files...
+        "C:\Program Files\Apache\maven\bin\mvn.cmd" spring-boot:run -Dspring-boot.run.profiles=dev
+    ) else if exist "C:\apache-maven\bin\mvn.cmd" (
+        echo Found Maven in C:\apache-maven...
+        "C:\apache-maven\bin\mvn.cmd" spring-boot:run -Dspring-boot.run.profiles=dev
+    ) else (
+        echo Maven not found. Please:
+        echo 1. Install Maven: choco install maven
+        echo 2. Or use VS Code: Open EcommerceApplication.java and click "Run Java"
+        echo 3. Or restart your terminal after Maven installation
+        echo 4. Or manually download Maven from https://maven.apache.org/download.cgi
+        pause
+    )
 )

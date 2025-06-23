@@ -1,5 +1,11 @@
 @echo off
 echo Starting E-commerce Backend...
+
+REM Add common paths for Java and Maven
+set "JAVA_HOME=C:\Program Files\Java\jdk-17"
+set "MAVEN_HOME=C:\Program Files\Apache\maven"
+set "PATH=%JAVA_HOME%\bin;%MAVEN_HOME%\bin;%PATH%"
+
 cd backend
 
 REM Try to use Maven if available

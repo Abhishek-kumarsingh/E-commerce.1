@@ -18,9 +18,14 @@ app:
 spring:
   application:
     name: ${app.name}
-  
+
   profiles:
     active: dev
+
+  # Allow bean definition overriding for JPA and MongoDB auditing
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
   
   # Database Configuration - PostgreSQL
   datasource:

@@ -1,6 +1,9 @@
 @echo off
 echo Starting E-commerce Frontend...
-cd frontend
+
+REM Add Node.js to PATH if not already there
+set "NODE_PATH=C:\Program Files\nodejs"
+set "PATH=%NODE_PATH%;%PATH%"
 
 REM Check if node_modules exists
 if not exist "node_modules" (
@@ -8,5 +11,5 @@ if not exist "node_modules" (
     npm install
 )
 
-echo Starting React development server...
-npm start
+echo Starting Vite development server...
+npm run dev

@@ -11,23 +11,30 @@ interface ProductGridProps {
 const ProductGrid: React.FC<ProductGridProps> = ({ products, loading = false }) => {
   if (loading) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {Array.from({ length: 8 }).map((_, index) => (
-          <div
+          <motion.div
             key={index}
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden animate-pulse"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className="card overflow-hidden"
           >
-            <div className="h-48 bg-gray-300 dark:bg-gray-700"></div>
-            <div className="p-4 space-y-3">
-              <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-3/4"></div>
-              <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-1/2"></div>
-              <div className="h-8 bg-gray-300 dark:bg-gray-700 rounded"></div>
+            <div className="loading-shimmer h-64 rounded-t-2xl"></div>
+            <div className="p-6 space-y-4">
               <div className="flex justify-between items-center">
-                <div className="h-6 bg-gray-300 dark:bg-gray-700 rounded w-1/4"></div>
-                <div className="h-8 bg-gray-300 dark:bg-gray-700 rounded w-1/3"></div>
+                <div className="loading-shimmer h-6 rounded-full w-20"></div>
+                <div className="loading-shimmer h-4 rounded w-16"></div>
+              </div>
+              <div className="loading-shimmer h-6 rounded w-3/4"></div>
+              <div className="loading-shimmer h-4 rounded w-full"></div>
+              <div className="loading-shimmer h-4 rounded w-2/3"></div>
+              <div className="flex justify-between items-center pt-2">
+                <div className="loading-shimmer h-8 rounded w-1/3"></div>
+                <div className="loading-shimmer h-10 rounded-xl w-1/4"></div>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     );
@@ -48,17 +55,10 @@ const ProductGrid: React.FC<ProductGridProps> = ({ products, loading = false }) 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
     >
       {products.map((product, index) => (
-        <motion.div
-          key={product.id}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: index * 0.1 }}
-        >
-          <ProductCard product={product} />
-        </motion.div>
+        <ProductCard key={product.id} product={product} index={index} />
       ))}
     </motion.div>
   );

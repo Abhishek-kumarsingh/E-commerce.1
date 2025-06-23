@@ -23,6 +23,7 @@ export const products = [
     rating: 4.8,
     reviewCount: 234,
     inStock: true,
+    stockQuantity: 45,
     featured: true,
     tags: ['wireless', 'noise-cancelling', 'premium'],
     brand: 'AudioTech',
@@ -31,7 +32,9 @@ export const products = [
       'Connectivity': 'Bluetooth 5.0',
       'Weight': '250g',
       'Warranty': '2 years'
-    }
+    },
+    createdAt: '2024-01-15T10:00:00Z',
+    updatedAt: '2024-01-15T10:00:00Z'
   },
   {
     id: '2',
@@ -47,6 +50,7 @@ export const products = [
     rating: 4.6,
     reviewCount: 189,
     inStock: true,
+    stockQuantity: 32,
     featured: true,
     tags: ['fitness', 'smartwatch', 'health'],
     brand: 'FitTech',
@@ -55,7 +59,9 @@ export const products = [
       'Battery': '7 days',
       'Water Resistance': '50m',
       'GPS': 'Built-in'
-    }
+    },
+    createdAt: '2024-01-10T14:30:00Z',
+    updatedAt: '2024-01-10T14:30:00Z'
   },
   {
     id: '3',
@@ -70,6 +76,7 @@ export const products = [
     rating: 4.4,
     reviewCount: 67,
     inStock: true,
+    stockQuantity: 120,
     featured: false,
     tags: ['organic', 'comfortable', 'casual'],
     brand: 'EcoWear',
@@ -78,7 +85,9 @@ export const products = [
       'Care': 'Machine Wash',
       'Fit': 'Regular',
       'Origin': 'Sustainably Sourced'
-    }
+    },
+    createdAt: '2024-01-05T09:15:00Z',
+    updatedAt: '2024-01-05T09:15:00Z'
   },
   {
     id: '4',
@@ -94,6 +103,7 @@ export const products = [
     rating: 4.9,
     reviewCount: 156,
     inStock: true,
+    stockQuantity: 18,
     featured: true,
     tags: ['photography', 'professional', 'prime lens'],
     brand: 'LensCraft',
@@ -102,7 +112,9 @@ export const products = [
       'Aperture': 'f/1.4',
       'Mount': 'Universal',
       'Weight': '600g'
-    }
+    },
+    createdAt: '2024-01-12T16:45:00Z',
+    updatedAt: '2024-01-12T16:45:00Z'
   },
   {
     id: '5',
@@ -117,6 +129,7 @@ export const products = [
     rating: 4.7,
     reviewCount: 89,
     inStock: true,
+    stockQuantity: 25,
     featured: false,
     tags: ['furniture', 'comfort', 'reading'],
     brand: 'HomeFurn',
@@ -125,7 +138,9 @@ export const products = [
       'Dimensions': '32" W x 34" D x 40" H',
       'Weight Capacity': '300 lbs',
       'Assembly': 'Required'
-    }
+    },
+    createdAt: '2024-01-08T11:20:00Z',
+    updatedAt: '2024-01-08T11:20:00Z'
   },
   {
     id: '6',
@@ -141,6 +156,7 @@ export const products = [
     rating: 4.5,
     reviewCount: 412,
     inStock: true,
+    stockQuantity: 200,
     featured: true,
     tags: ['fiction', 'bestseller', 'award-winning'],
     brand: 'Literary Press',
@@ -149,7 +165,9 @@ export const products = [
       'Format': 'Paperback',
       'Language': 'English',
       'Publication': '2024'
-    }
+    },
+    createdAt: '2024-01-03T13:10:00Z',
+    updatedAt: '2024-01-03T13:10:00Z'
   },
   {
     id: '7',
@@ -164,6 +182,7 @@ export const products = [
     rating: 4.6,
     reviewCount: 123,
     inStock: true,
+    stockQuantity: 75,
     featured: false,
     tags: ['yoga', 'fitness', 'eco-friendly'],
     brand: 'ZenFit',
@@ -172,7 +191,9 @@ export const products = [
       'Material': 'Natural Rubber',
       'Dimensions': '72" x 24"',
       'Weight': '2.5 lbs'
-    }
+    },
+    createdAt: '2024-01-06T15:30:00Z',
+    updatedAt: '2024-01-06T15:30:00Z'
   },
   {
     id: '8',
@@ -188,6 +209,7 @@ export const products = [
     rating: 4.8,
     reviewCount: 267,
     inStock: true,
+    stockQuantity: 60,
     featured: true,
     tags: ['skincare', 'luxury', 'anti-aging'],
     brand: 'BeautyLux',
@@ -196,7 +218,9 @@ export const products = [
       'Skin Type': 'All skin types',
       'Key Ingredients': 'Vitamin C, Hyaluronic Acid',
       'Cruelty-Free': 'Yes'
-    }
+    },
+    createdAt: '2024-01-14T12:00:00Z',
+    updatedAt: '2024-01-14T12:00:00Z'
   }
 ];
 

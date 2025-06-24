@@ -11,23 +11,22 @@ import {
   Heart,
   Package,
   Bell,
-  Settings,
-  LogOut,
+
   UserCircle,
   Grid3X3,
   Sparkles,
   TrendingUp
 } from 'lucide-react';
 import { useCartStore } from '../store/cartStore';
-import { useAuthStore } from '../store/authStore';
 import { useThemeStore } from '../store/themeStore';
 import { categories } from '../data/mockData';
 import { motion, AnimatePresence } from 'framer-motion';
+import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton, useUser } from '@clerk/clerk-react';
 
 const Header: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
@@ -36,8 +35,8 @@ const Header: React.FC = () => {
   const userMenuRef = useRef<HTMLDivElement>(null);
 
   const { getTotalItems, toggleCart } = useCartStore();
-  const { isAuthenticated, user, logout } = useAuthStore();
   const { isDark, toggleTheme } = useThemeStore();
+  const userClerk = useUser();
 
   // Handle scroll effect for glassmorphism
   useEffect(() => {
@@ -73,11 +72,7 @@ const Header: React.FC = () => {
     }
   };
 
-  const handleLogout = () => {
-    logout();
-    setIsUserMenuOpen(false);
-    navigate('/');
-  };
+  
 
   return (
     <>
@@ -237,140 +232,40 @@ const Header: React.FC = () => {
                 </AnimatePresence>
               </motion.button>
 
-              {/* Enhanced User menu */}
+              {/* User menu with Clerk */}
               <div className="relative" ref={userMenuRef}>
-                <motion.button
-                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="flex items-center space-x-3 p-3 rounded-xl bg-neutral-100/80 dark:bg-neutral-800/80 backdrop-blur-sm hover:bg-neutral-200/80 dark:hover:bg-neutral-700/80 transition-all duration-300 group"
-                >
-                  {isAuthenticated ? (
-                    <>
-                      <div className="relative">
-                        <div className="w-8 h-8 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                          {user?.name?.charAt(0).toUpperCase() || 'U'}
-                        </div>
-                        <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-accent-500 rounded-full border-2 border-white dark:border-neutral-800"></div>
-                      </div>
-                      <div className="hidden md:block text-left">
-                        <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
-                          {user?.name || 'User'}
-                        </p>
-                        <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                          {user?.email || 'user@example.com'}
-                        </p>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <UserCircle className="h-6 w-6 text-neutral-600 dark:text-neutral-300" />
-                      <span className="hidden md:block text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                        Account
-                      </span>
-                    </>
-                  )}
-                </motion.button>
-
-                {/* Enhanced User dropdown */}
-                <AnimatePresence>
-                  {isUserMenuOpen && (
+                <SignedIn>
+                  <UserButton afterSignOutUrl="/" />
+                </SignedIn>
+                <SignedOut>
+                  <div className="flex space-x-2">
                     <motion.div
-                      initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute right-0 mt-3 w-64 glass rounded-2xl shadow-hard border border-white/20 dark:border-black/20 py-2 z-50 overflow-hidden"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="rounded-xl bg-neutral-100/80 dark:bg-neutral-800/80 backdrop-blur-sm hover:bg-neutral-200/80 dark:hover:bg-neutral-700/80 transition-all duration-300"
                     >
-                      {isAuthenticated ? (
-                        <>
-                          {/* User info header */}
-                          <div className="px-4 py-3 border-b border-white/10 dark:border-black/10">
-                            <div className="flex items-center space-x-3">
-                              <div className="w-10 h-10 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-full flex items-center justify-center text-white font-bold">
-                                {user?.name?.charAt(0).toUpperCase() || 'U'}
-                              </div>
-                              <div>
-                                <p className="font-medium text-neutral-900 dark:text-neutral-100">
-                                  {user?.name || 'User'}
-                                </p>
-                                <p className="text-sm text-neutral-500 dark:text-neutral-400">
-                                  {user?.email || 'user@example.com'}
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Menu items */}
-                          <div className="py-2">
-                            <Link
-                              to="/profile"
-                              className="flex items-center space-x-3 px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-white/10 dark:hover:bg-black/10 transition-colors"
-                              onClick={() => setIsUserMenuOpen(false)}
-                            >
-                              <UserCircle className="h-4 w-4" />
-                              <span>Profile Settings</span>
-                            </Link>
-                            <Link
-                              to="/orders"
-                              className="flex items-center space-x-3 px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-white/10 dark:hover:bg-black/10 transition-colors"
-                              onClick={() => setIsUserMenuOpen(false)}
-                            >
-                              <ShoppingCart className="h-4 w-4" />
-                              <span>My Orders</span>
-                            </Link>
-                            <Link
-                              to="/wishlist"
-                              className="flex items-center space-x-3 px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-white/10 dark:hover:bg-black/10 transition-colors"
-                              onClick={() => setIsUserMenuOpen(false)}
-                            >
-                              <Heart className="h-4 w-4" />
-                              <span>Wishlist</span>
-                            </Link>
-                            {user?.isAdmin && (
-                              <Link
-                                to="/admin"
-                                className="flex items-center space-x-3 px-4 py-3 text-sm text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors"
-                                onClick={() => setIsUserMenuOpen(false)}
-                              >
-                                <Settings className="h-4 w-4" />
-                                <span>Admin Dashboard</span>
-                              </Link>
-                            )}
-                          </div>
-
-                          {/* Logout */}
-                          <div className="border-t border-white/10 dark:border-black/10 pt-2">
-                            <button
-                              onClick={handleLogout}
-                              className="flex items-center space-x-3 w-full px-4 py-3 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
-                            >
-                              <LogOut className="h-4 w-4" />
-                              <span>Sign Out</span>
-                            </button>
-                          </div>
-                        </>
-                      ) : (
-                        <div className="py-2">
-                          <Link
-                            to="/login"
-                            className="block px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-white/10 dark:hover:bg-black/10 transition-colors"
-                            onClick={() => setIsUserMenuOpen(false)}
-                          >
-                            Sign In
-                          </Link>
-                          <Link
-                            to="/register"
-                            className="block px-4 py-3 text-sm text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors"
-                            onClick={() => setIsUserMenuOpen(false)}
-                          >
-                            Create Account
-                          </Link>
-                        </div>
-                      )}
+                      <SignInButton mode="modal">
+                        <button className="flex items-center space-x-2 p-3 text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                          <UserCircle className="h-5 w-5" />
+                          <span className="hidden md:block">Sign In</span>
+                        </button>
+                      </SignInButton>
                     </motion.div>
-                  )}
-                </AnimatePresence>
+                    
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="rounded-xl bg-primary-500/20 backdrop-blur-sm hover:bg-primary-500/30 transition-all duration-300"
+                    >
+                      <SignUpButton mode="modal">
+                        <button className="flex items-center space-x-2 p-3 text-sm font-medium text-primary-600 dark:text-primary-400">
+                          <User className="h-5 w-5" />
+                          <span className="hidden md:block">Sign Up</span>
+                        </button>
+                      </SignUpButton>
+                    </motion.div>
+                  </div>
+                </SignedOut>
               </div>
 
               {/* Mobile menu button */}

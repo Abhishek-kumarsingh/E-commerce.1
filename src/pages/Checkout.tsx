@@ -44,21 +44,80 @@ const Checkout: React.FC = () => {
     }
   };
 
+  const validateForm = () => {
+    // Check if required fields are filled
+    if (!shippingInfo.firstName || !shippingInfo.lastName || !shippingInfo.email || 
+        !shippingInfo.phone || !shippingInfo.address || !shippingInfo.city || 
+        !shippingInfo.state || !shippingInfo.zipCode) {
+      toast.error('Please fill in all shipping information fields');
+      return false;
+    }
+
+    if (!paymentInfo.cardNumber || !paymentInfo.expiryDate || 
+        !paymentInfo.cvv || !paymentInfo.cardholderName) {
+      toast.error('Please fill in all payment information fields');
+      return false;
+    }
+
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(shippingInfo.email)) {
+      toast.error('Please enter a valid email address');
+      return false;
+    }
+
+    // Basic card number validation (16 digits)
+    const cardNumberRegex = /^\d{16}$/;
+    const cleanCardNumber = paymentInfo.cardNumber.replace(/\s+/g, '');
+    if (!cardNumberRegex.test(cleanCardNumber)) {
+      toast.error('Please enter a valid 16-digit card number');
+      return false;
+    }
+
+    // Basic CVV validation (3-4 digits)
+    const cvvRegex = /^\d{3,4}$/;
+    if (!cvvRegex.test(paymentInfo.cvv)) {
+      toast.error('Please enter a valid CVV code (3-4 digits)');
+      return false;
+    }
+
+    // Basic expiry date validation (MM/YY format)
+    const expiryRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+    if (!expiryRegex.test(paymentInfo.expiryDate)) {
+      toast.error('Please enter a valid expiry date (MM/YY)');
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate form before processing
+    if (!validateForm()) {
+      return;
+    }
+    
     setIsProcessing(true);
 
-    // Simulate payment processing
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    try {
+      // Simulate payment processing
+      await new Promise(resolve => setTimeout(resolve, 2000));
 
-    toast.success('Order placed successfully!', {
-      icon: '🎉',
-      duration: 3000,
-    });
+      toast.success('Order placed successfully!', {
+        icon: '🎉',
+        duration: 3000,
+      });
 
-    clearCart();
-    setIsProcessing(false);
-    navigate('/orders');
+      clearCart();
+      navigate('/orders');
+    } catch (error) {
+      console.error('Checkout error:', error);
+      toast.error('There was a problem processing your order. Please try again.');
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   const formatPrice = (price: number) => {
@@ -95,16 +154,16 @@ const Checkout: React.FC = () => {
   const total = subtotal + shipping + tax;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-4 sm:py-8">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">Checkout</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-8">Checkout</h1>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8">
             {/* Checkout Form */}
             <div className="space-y-8">
               {/* Shipping Information */}
@@ -363,15 +422,16 @@ const Checkout: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isProcessing}
-                  className="w-full bg-primary-600 text-white py-3 rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
+                  className="w-full bg-primary-600 text-white py-3 rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+                  aria-label="Place order"
                 >
                   {isProcessing ? (
                     <div className="flex items-center justify-center">
                       <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                      Processing...
+                      <span>Processing...</span>
                     </div>
                   ) : (
-                    `Place Order - ${formatPrice(total)}`
+                    <span>Place Order - {formatPrice(total)}</span>
                   )}
                 </button>
               </form>

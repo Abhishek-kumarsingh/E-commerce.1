@@ -11,7 +11,7 @@ import {
   Heart,
   Package,
   Bell,
-
+  CreditCard,
   UserCircle,
   Grid3X3,
   Sparkles,
@@ -26,7 +26,7 @@ import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton, useUser } 
 const Header: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
@@ -321,7 +321,7 @@ const Header: React.FC = () => {
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         placeholder="Search products..."
-                        className="input w-full pl-12 pr-4 py-4 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm"
+                        className="w-full pl-12 pr-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
                       />
                       <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-neutral-400" />
                     </div>
@@ -333,35 +333,55 @@ const Header: React.FC = () => {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={toggleCart}
-                      className="flex items-center justify-center space-x-2 p-4 glass rounded-xl"
+                      className="flex items-center justify-center space-x-2 p-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
                     >
                       <ShoppingCart className="h-5 w-5" />
                       <span className="font-medium">Cart ({getTotalItems()})</span>
                     </motion.button>
-                    <motion.button
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="flex items-center justify-center space-x-2 p-4 glass rounded-xl"
+                    <Link
+                      to="/checkout"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="flex items-center justify-center space-x-2 p-3 bg-secondary-600 text-white rounded-lg hover:bg-secondary-700 transition-colors"
+                    >
+                      <CreditCard className="h-5 w-5" />
+                      <span className="font-medium">Checkout</span>
+                    </Link>
+                  </div>
+                  
+                  {/* Additional quick links */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <Link
+                      to="/wishlist"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="flex items-center justify-center space-x-2 p-3 glass rounded-lg hover:bg-white/20 dark:hover:bg-black/20 transition-colors"
                     >
                       <Heart className="h-5 w-5" />
                       <span className="font-medium">Wishlist</span>
-                    </motion.button>
+                    </Link>
+                    <Link
+                      to="/orders"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="flex items-center justify-center space-x-2 p-3 glass rounded-lg hover:bg-white/20 dark:hover:bg-black/20 transition-colors"
+                    >
+                      <Package className="h-5 w-5" />
+                      <span className="font-medium">Orders</span>
+                    </Link>
                   </div>
 
                   {/* Categories */}
                   <div>
                     <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100 mb-4">Categories</h3>
                     <div className="grid grid-cols-2 gap-3">
-                      {categories.slice(0, 8).map((category, index) => (
+                      {categories.slice(0, 6).map((category, index) => (
                         <motion.div
                           key={category.id}
                           initial={{ opacity: 0, x: -20 }}
                           animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.1 }}
+                          transition={{ delay: index * 0.05 }}
                         >
                           <Link
                             to={`/category/${category.slug}`}
-                            className="block p-3 glass rounded-xl text-center hover:bg-white/20 dark:hover:bg-black/20 transition-colors"
+                            className="flex flex-col items-center justify-center p-3 bg-white/10 dark:bg-black/10 rounded-lg hover:bg-white/20 dark:hover:bg-black/20 transition-colors"
                             onClick={() => setIsMenuOpen(false)}
                           >
                             <div className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
@@ -373,6 +393,15 @@ const Header: React.FC = () => {
                           </Link>
                         </motion.div>
                       ))}
+                    </div>
+                    <div className="mt-4 text-center">
+                      <Link
+                        to="/categories"
+                        onClick={() => setIsMenuOpen(false)}
+                        className="text-primary-600 dark:text-primary-400 text-sm font-medium hover:underline"
+                      >
+                        View All Categories
+                      </Link>
                     </div>
                   </div>
                 </div>

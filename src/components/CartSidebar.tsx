@@ -33,7 +33,7 @@ const CartSidebar: React.FC = () => {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed right-0 top-0 h-full w-full max-w-md bg-white dark:bg-gray-900 shadow-lg z-50 flex flex-col"
+            className="fixed right-0 top-0 h-full w-full sm:w-4/5 md:w-3/5 lg:max-w-md bg-white dark:bg-gray-900 shadow-lg z-50 flex flex-col"
           >
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
@@ -139,9 +139,10 @@ const CartSidebar: React.FC = () => {
                   <Link
                     to="/checkout"
                     onClick={toggleCart}
-                    className="w-full bg-primary-600 text-white py-3 rounded-lg hover:bg-primary-700 transition-colors font-medium text-center block"
+                    className="w-full bg-primary-600 text-white py-3 rounded-lg hover:bg-primary-700 transition-colors font-medium text-center block flex items-center justify-center"
+                    aria-label="Proceed to checkout"
                   >
-                    Proceed to Checkout
+                    <span>Proceed to Checkout</span>
                   </Link>
                   
                   <button

@@ -6,22 +6,31 @@ import { motion } from 'framer-motion';
 interface ProductGridProps {
   products: Product[];
   loading?: boolean;
+  viewMode?: 'grid' | 'list';
 }
 
-const ProductGrid: React.FC<ProductGridProps> = ({ products, loading = false }) => {
+const ProductGrid: React.FC<ProductGridProps> = ({ products, loading = false, viewMode = 'grid' }) => {
   if (loading) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+      <div className={`grid gap-6 ${
+        viewMode === 'list' 
+          ? 'grid-cols-1' 
+          : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5'
+      }`}>
         {Array.from({ length: 8 }).map((_, index) => (
           <motion.div
             key={index}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="card overflow-hidden"
+            className={`card overflow-hidden ${
+              viewMode === 'list' ? 'flex flex-row' : ''
+            }`}
           >
-            <div className="loading-shimmer h-64 rounded-t-2xl"></div>
-            <div className="p-6 space-y-4">
+            <div className={`loading-shimmer rounded-t-2xl ${
+              viewMode === 'list' ? 'w-48 h-32' : 'h-64'
+            }`}></div>
+            <div className="p-6 space-y-4 flex-1">
               <div className="flex justify-between items-center">
                 <div className="loading-shimmer h-6 rounded-full w-20"></div>
                 <div className="loading-shimmer h-4 rounded w-16"></div>
@@ -55,10 +64,19 @@ const ProductGrid: React.FC<ProductGridProps> = ({ products, loading = false }) 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+      className={`grid gap-6 ${
+        viewMode === 'list' 
+          ? 'grid-cols-1' 
+          : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5'
+      }`}
     >
       {products.map((product, index) => (
-        <ProductCard key={product.id} product={product} index={index} />
+        <ProductCard 
+          key={product.id} 
+          product={product} 
+          index={index} 
+          viewMode={viewMode}
+        />
       ))}
     </motion.div>
   );

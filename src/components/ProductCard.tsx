@@ -9,9 +9,10 @@ import toast from 'react-hot-toast';
 interface ProductCardProps {
   product: Product;
   index?: number;
+  viewMode?: 'grid' | 'list';
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0 }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0, viewMode = 'grid' }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -60,31 +61,45 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0 }) => {
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
 
+  const isListView = viewMode === 'list';
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ y: -8, scale: 1.02 }}
+      whileHover={{ y: isListView ? 0 : -8, scale: isListView ? 1.01 : 1.02 }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
-      className="group relative"
+      className={`group relative ${
+        isListView ? 'flex flex-row' : ''
+      }`}
     >
-      <div className="card-interactive overflow-hidden backdrop-blur-sm">
-        <Link to={`/product/${product.id}`} className="block">
+      <div className={`card-interactive overflow-hidden backdrop-blur-sm ${
+        isListView ? 'flex flex-row w-full' : ''
+      }`}>
+        <Link to={`/product/${product.id}`} className={`block ${
+          isListView ? 'flex flex-row w-full' : ''
+        }`}>
           {/* Image container with enhanced effects */}
-          <div className="relative overflow-hidden rounded-t-2xl bg-neutral-100 dark:bg-neutral-800">
+          <div className={`relative overflow-hidden bg-neutral-100 dark:bg-neutral-800 ${
+            isListView 
+              ? 'w-48 h-32 flex-shrink-0 rounded-l-2xl' 
+              : 'rounded-t-2xl'
+          }`}>
             {/* Loading skeleton */}
             {!imageLoaded && (
-              <div className="absolute inset-0 loading-shimmer rounded-t-2xl"></div>
+              <div className={`absolute inset-0 loading-shimmer ${
+                isListView ? 'rounded-l-2xl' : 'rounded-t-2xl'
+              }`}></div>
             )}
 
             <motion.img
               src={product.image}
               alt={product.name}
-              className={`w-full h-64 object-cover transition-all duration-500 ${
+              className={`w-full h-full object-cover transition-all duration-500 ${
                 imageLoaded ? 'opacity-100' : 'opacity-0'
-              } ${isHovered ? 'scale-110' : 'scale-100'}`}
+              } ${isHovered && !isListView ? 'scale-110' : 'scale-100'}`}
               onLoad={() => setImageLoaded(true)}
               loading="lazy"
             />
@@ -166,7 +181,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0 }) => {
 
             {/* Quick add to cart on hover */}
             <AnimatePresence>
-              {isHovered && product.inStock && (
+              {isHovered && product.inStock && !isListView && (
                 <motion.div
                   initial={{ y: 100, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
@@ -189,7 +204,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0 }) => {
           </div>
 
           {/* Product information */}
-          <div className="p-6 space-y-4">
+          <div className={`space-y-4 ${
+            isListView 
+              ? 'p-6 flex-1 flex flex-col justify-between' 
+              : 'p-6'
+          }`}>
             {/* Brand and rating */}
             <div className="flex items-center justify-between">
               <motion.span
@@ -209,19 +228,27 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0 }) => {
             </div>
 
             {/* Product name */}
-            <h3 className="font-bold text-lg text-neutral-900 dark:text-neutral-100 line-clamp-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300 leading-tight">
+            <h3 className={`font-bold text-neutral-900 dark:text-neutral-100 line-clamp-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300 leading-tight ${
+              isListView ? 'text-xl' : 'text-lg'
+            }`}>
               {product.name}
             </h3>
 
             {/* Description */}
-            <p className="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-2 leading-relaxed">
+            <p className={`text-neutral-600 dark:text-neutral-400 line-clamp-2 leading-relaxed ${
+              isListView ? 'text-base' : 'text-sm'
+            }`}>
               {product.description}
             </p>
 
             {/* Price and action */}
-            <div className="flex items-center justify-between pt-2">
+            <div className={`flex items-center justify-between ${
+              isListView ? 'pt-4' : 'pt-2'
+            }`}>
               <div className="flex items-center space-x-3">
-                <span className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+                <span className={`font-bold text-neutral-900 dark:text-neutral-100 ${
+                  isListView ? 'text-2xl' : 'text-xl'
+                }`}>
                   ${product.price}
                 </span>
                 {product.originalPrice && (

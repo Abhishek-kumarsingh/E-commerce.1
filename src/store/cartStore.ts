@@ -56,11 +56,41 @@ export const useCartStore = create<CartState>()(
         addItem: async (product: Product, quantity = 1, selectedVariants) => {
           set({ isLoading: true });
           try {
-            const response = await cartService.addToCart(product.id, quantity, selectedVariants);
-            if (response.success) {
-              await get().loadCart();
-              toast.success(`${product.name} added to cart`);
+            // Try API first, fallback to local storage
+            try {
+              const response = await cartService.addToCart(product.id, quantity, selectedVariants);
+              if (response.success) {
+                await get().loadCart();
+                toast.success(`${product.name} added to cart`);
+                return;
+              }
+            } catch (error) {
+              console.warn('API not available, using local storage');
             }
+
+            // Fallback to local storage
+            const currentItems = get().items;
+            const existingItem = currentItems.find(item => item.product.id === product.id);
+            
+            if (existingItem) {
+              const updatedItems = currentItems.map(item =>
+                item.product.id === product.id
+                  ? { ...item, quantity: item.quantity + quantity }
+                  : item
+              );
+              set({ items: updatedItems });
+            } else {
+              const newItem: CartItem = {
+                id: `${product.id}-${Date.now()}`,
+                product,
+                quantity,
+                selectedVariants: selectedVariants || {},
+                addedAt: new Date().toISOString()
+              };
+              set({ items: [...currentItems, newItem] });
+            }
+            
+            toast.success(`${product.name} added to cart`);
           } catch (error) {
             console.error('Failed to add item to cart:', error);
             toast.error('Failed to add item to cart');
@@ -73,11 +103,23 @@ export const useCartStore = create<CartState>()(
         removeItem: async (itemId: string) => {
           set({ isLoading: true });
           try {
-            const response = await cartService.removeFromCart(itemId);
-            if (response.success) {
-              await get().loadCart();
-              toast.success('Item removed from cart');
+            // Try API first, fallback to local storage
+            try {
+              const response = await cartService.removeFromCart(itemId);
+              if (response.success) {
+                await get().loadCart();
+                toast.success('Item removed from cart');
+                return;
+              }
+            } catch (error) {
+              console.warn('API not available, using local storage');
             }
+
+            // Fallback to local storage
+            const currentItems = get().items;
+            const updatedItems = currentItems.filter(item => item.id !== itemId);
+            set({ items: updatedItems });
+            toast.success('Item removed from cart');
           } catch (error) {
             console.error('Failed to remove item from cart:', error);
             toast.error('Failed to remove item from cart');
@@ -95,10 +137,23 @@ export const useCartStore = create<CartState>()(
 
           set({ isLoading: true });
           try {
-            const response = await cartService.updateCartItem(itemId, quantity);
-            if (response.success) {
-              await get().loadCart();
+            // Try API first, fallback to local storage
+            try {
+              const response = await cartService.updateCartItem(itemId, quantity);
+              if (response.success) {
+                await get().loadCart();
+                return;
+              }
+            } catch (error) {
+              console.warn('API not available, using local storage');
             }
+
+            // Fallback to local storage
+            const currentItems = get().items;
+            const updatedItems = currentItems.map(item =>
+              item.id === itemId ? { ...item, quantity } : item
+            );
+            set({ items: updatedItems });
           } catch (error) {
             console.error('Failed to update item quantity:', error);
             toast.error('Failed to update quantity');
@@ -111,11 +166,21 @@ export const useCartStore = create<CartState>()(
         clearCart: async () => {
           set({ isLoading: true });
           try {
-            const response = await cartService.clearCart();
-            if (response.success) {
-              set({ items: [], summary: null, appliedCoupon: null });
-              toast.success('Cart cleared');
+            // Try API first, fallback to local storage
+            try {
+              const response = await cartService.clearCart();
+              if (response.success) {
+                set({ items: [], summary: null, appliedCoupon: null });
+                toast.success('Cart cleared');
+                return;
+              }
+            } catch (error) {
+              console.warn('API not available, using local storage');
             }
+
+            // Fallback to local storage
+            set({ items: [], summary: null, appliedCoupon: null });
+            toast.success('Cart cleared');
           } catch (error) {
             console.error('Failed to clear cart:', error);
             toast.error('Failed to clear cart');
@@ -132,17 +197,36 @@ export const useCartStore = create<CartState>()(
         // Load cart from server
         loadCart: async () => {
           try {
-            const [cartResponse, summaryResponse] = await Promise.all([
-              cartService.getCart(),
-              cartService.getCartSummary()
-            ]);
+            // Try API first, fallback to local storage
+            try {
+              const [cartResponse, summaryResponse] = await Promise.all([
+                cartService.getCart(),
+                cartService.getCartSummary()
+              ]);
 
-            if (cartResponse.success && summaryResponse.success) {
-              set({
-                items: cartResponse.data,
-                summary: summaryResponse.data
-              });
+              if (cartResponse.success && summaryResponse.success) {
+                set({
+                  items: cartResponse.data,
+                  summary: summaryResponse.data
+                });
+                return;
+              }
+            } catch (error) {
+              console.warn('API not available, using local storage');
             }
+
+            // Fallback to local storage - summary will be calculated from items
+            const currentItems = get().items;
+            const summary: CartSummary = {
+              itemCount: currentItems.reduce((total, item) => total + item.quantity, 0),
+              subtotal: currentItems.reduce((total, item) => total + (item.product.price * item.quantity), 0),
+              tax: 0,
+              shipping: 0,
+              discount: 0,
+              total: currentItems.reduce((total, item) => total + (item.product.price * item.quantity), 0),
+              estimatedDelivery: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
+            };
+            set({ summary });
           } catch (error) {
             console.error('Failed to load cart:', error);
           }
@@ -206,23 +290,13 @@ export const useCartStore = create<CartState>()(
           }
         },
 
-        // Validate cart before checkout
-        validateCart: async (): Promise<boolean> => {
+        // Validate cart
+        validateCart: async () => {
           try {
             const response = await cartService.validateCart();
-            if (response.success) {
-              if (!response.data.valid) {
-                response.data.issues.forEach(issue => {
-                  toast.error(`${issue.productName}: ${issue.issue.replace('_', ' ')}`);
-                });
-                await get().loadCart(); // Refresh cart to show updated prices/availability
-              }
-              return response.data.valid;
-            }
-            return false;
+            return response.success;
           } catch (error) {
             console.error('Failed to validate cart:', error);
-            toast.error('Failed to validate cart');
             return false;
           }
         },
@@ -233,8 +307,7 @@ export const useCartStore = create<CartState>()(
         },
 
         getTotalPrice: () => {
-          const summary = get().summary;
-          return summary ? summary.total : get().items.reduce((total, item) => total + (item.product.price * item.quantity), 0);
+          return get().items.reduce((total, item) => total + (item.product.price * item.quantity), 0);
         },
 
         getItemById: (itemId: string) => {
@@ -249,7 +322,7 @@ export const useCartStore = create<CartState>()(
         name: 'cart-storage',
         partialize: (state) => ({
           items: state.items,
-          appliedCoupon: state.appliedCoupon
+          appliedCoupon: state.appliedCoupon,
         }),
       }
     )

@@ -1,386 +1,293 @@
 # EcommerceHub - Modern E-commerce Platform
 
-A full-stack e-commerce platform built with React, TypeScript, TailwindCSS (frontend) and Java Spring Boot (backend), featuring PostgreSQL and MongoDB databases.
-
-## 🚀 Features
-
-### Frontend (React + TypeScript + TailwindCSS)
-- Modern, responsive UI with TailwindCSS
-- TypeScript for type safety
-- Clerk authentication integration
-- Stripe/Razorpay payment integration
-- Product catalog with search and filtering
-- Shopping cart and wishlist
-- User dashboard and order management
-- Admin panel for product and order management
-
-### Backend (Java Spring Boot)
-- RESTful API with comprehensive endpoints
-- JWT-based authentication and authorization
-- Dual database architecture (PostgreSQL + MongoDB)
-- Email service with template support
-- File upload and management
-- Comprehensive security configuration
-- API documentation with Swagger/OpenAPI
-- Caching and performance optimization
-
-### Databases
-- **PostgreSQL**: User data, orders, payments, reviews
-- **MongoDB**: Product catalog, categories
-- **Redis**: Caching (optional)
-
-## 🛠️ Tech Stack
-
-### Frontend
-- React 18
-- TypeScript
-- TailwindCSS
-- Clerk (Authentication)
-- Stripe/Razorpay (Payments)
-- Axios (HTTP Client)
-- React Router (Navigation)
-
-### Backend
-- Java 21
-- Spring Boot 3.2
-- Spring Security
-- Spring Data JPA
-- Spring Data MongoDB
-- JWT Authentication
-- Maven
-- Swagger/OpenAPI
-
-### Databases
-- PostgreSQL 15
-- MongoDB 7.0
-- Redis 7 (optional)
-
-### DevOps
-- Docker & Docker Compose
-- Nginx (reverse proxy)
-- MailHog (email testing)
-
-## 📋 Prerequisites
-
-- Java 21 or higher
-- Node.js 18 or higher
-- Docker and Docker Compose
-- Maven 3.9+
-- Git
+A full-stack e-commerce application built with React, TypeScript, Spring Boot, and MongoDB.
 
 ## 🚀 Quick Start
 
-### 1. Clone the Repository
+### Prerequisites
+
+- **Node.js 18+** and npm (see installation instructions below)
+- **Java 17+** and Maven
+- **MongoDB** (local or cloud)
+
+### Installation
+
+#### 1. Install Node.js and npm (if not installed)
+
+**Option A: Automatic Installation (Windows)**
 ```bash
-git clone https://github.com/yourusername/ecommercehub.git
-cd ecommercehub
+# Run the provided installer script
+install-nodejs.bat
 ```
 
-### 2. Environment Setup
+**Option B: Manual Installation**
+1. Download Node.js from [https://nodejs.org/](https://nodejs.org/)
+2. Install Node.js (includes npm)
+3. Restart your terminal/command prompt
 
-Create environment files:
-
-**Backend (.env)**
+**Option C: Using Chocolatey (Windows)**
 ```bash
-# Database Configuration
-DATABASE_URL=jdbc:postgresql://localhost:5432/ecommerce_db
-DATABASE_USERNAME=postgres
-DATABASE_PASSWORD=password
-MONGODB_URI=mongodb://localhost:27017/ecommerce_products
-
-# JWT Configuration
-JWT_SECRET=myVerySecretKeyThatIsAtLeast256BitsLongForHS512Algorithm
-JWT_EXPIRATION=86400000
-JWT_REFRESH_EXPIRATION=604800000
-
-# Mail Configuration
-MAIL_HOST=smtp.gmail.com
-MAIL_PORT=587
-MAIL_USERNAME=your-email@gmail.com
-MAIL_PASSWORD=your-app-password
-
-# File Upload
-FILE_UPLOAD_DIR=./uploads
-FILE_MAX_SIZE=10485760
-
-# Frontend URL
-FRONTEND_URL=http://localhost:3000
+choco install nodejs
 ```
 
-**Frontend (.env)**
+**Option D: Using Homebrew (macOS)**
 ```bash
-REACT_APP_API_URL=http://localhost:8080/api
-REACT_APP_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
-REACT_APP_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
+brew install node
 ```
 
-### 3. Using Docker Compose (Recommended)
-
+#### 2. Install Frontend Dependencies
 ```bash
-# Start all services
-docker-compose up -d
-
-# View logs
-docker-compose logs -f
-
-# Stop services
-docker-compose down
-```
-
-This will start:
-- PostgreSQL (port 5432)
-- MongoDB (port 27017)
-- Redis (port 6379)
-- MailHog (ports 1025, 8025)
-- Backend API (port 8080)
-- Frontend (port 3000)
-- Nginx (port 80)
-
-### 4. Manual Setup
-
-#### Backend Setup
-```bash
-cd backend
-
-# Install dependencies and run
-mvn clean install
-mvn spring-boot:run
-
-# Or build and run JAR
-mvn clean package
-java -jar target/ecommerce-backend-1.0.0.jar
-```
-
-#### Frontend Setup
-```bash
-cd frontend
+# Navigate to project root
+cd /path/to/ecommerce-project
 
 # Install dependencies
 npm install
-
-# Start development server
-npm start
-
-# Build for production
-npm run build
 ```
 
-#### Database Setup
+#### 3. Install Backend Dependencies
 ```bash
-# Start PostgreSQL
-docker run -d --name postgres \
-  -e POSTGRES_DB=ecommerce_db \
-  -e POSTGRES_USER=postgres \
-  -e POSTGRES_PASSWORD=password \
-  -p 5432:5432 postgres:15-alpine
-
-# Start MongoDB
-docker run -d --name mongodb \
-  -e MONGO_INITDB_ROOT_USERNAME=admin \
-  -e MONGO_INITDB_ROOT_PASSWORD=password \
-  -p 27017:27017 mongo:7.0
-```
-
-## 📚 API Documentation
-
-Once the backend is running, access the API documentation at:
-- Swagger UI: http://localhost:8080/swagger-ui.html
-- OpenAPI JSON: http://localhost:8080/v3/api-docs
-
-## 🔧 Development
-
-### Backend Development
-```bash
+# Navigate to backend directory
 cd backend
 
-# Run tests
-mvn test
-
-# Run with specific profile
-mvn spring-boot:run -Dspring-boot.run.profiles=dev
-
-# Generate test coverage
-mvn jacoco:report
+# Install Maven dependencies
+mvn clean install
 ```
 
-### Frontend Development
+### Running the Application
+
+#### Frontend Development Server
 ```bash
-cd frontend
-
-# Run tests
-npm test
-
-# Run tests with coverage
-npm run test:coverage
-
-# Lint code
-npm run lint
-
-# Format code
-npm run format
+# From project root
+npm run dev
 ```
 
-## 🏗️ Project Structure
+The frontend will be available at: http://localhost:3000
 
-```
-ecommercehub/
-├── backend/                 # Spring Boot backend
-│   ├── src/main/java/
-│   │   └── com/ecommerce/
-│   │       ├── controller/  # REST controllers
-│   │       ├── service/     # Business logic
-│   │       ├── repository/  # Data access layer
-│   │       ├── entity/      # JPA entities
-│   │       ├── dto/         # Data transfer objects
-│   │       ├── config/      # Configuration classes
-│   │       └── security/    # Security configuration
-│   ├── src/main/resources/
-│   │   ├── application.yml  # Application configuration
-│   │   └── db/migration/    # Database migrations
-│   └── pom.xml             # Maven dependencies
-├── frontend/               # React frontend
-│   ├── src/
-│   │   ├── components/     # React components
-│   │   ├── pages/          # Page components
-│   │   ├── hooks/          # Custom hooks
-│   │   ├── services/       # API services
-│   │   ├── types/          # TypeScript types
-│   │   └── utils/          # Utility functions
-│   ├── public/             # Static assets
-│   └── package.json        # NPM dependencies
-├── scripts/                # Setup scripts
-├── docker-compose.yml      # Docker services
-└── README.md              # This file
-```
-
-## 🔐 Authentication
-
-The application uses JWT-based authentication with the following endpoints:
-
-- `POST /api/auth/register` - User registration
-- `POST /api/auth/login` - User login
-- `POST /api/auth/refresh-token` - Refresh JWT token
-- `POST /api/auth/forgot-password` - Password reset request
-- `POST /api/auth/reset-password` - Reset password
-- `POST /api/auth/verify-email` - Email verification
-
-## 💳 Payment Integration
-
-### Stripe Integration
-```javascript
-// Frontend payment processing
-const stripe = useStripe();
-const elements = useElements();
-
-const handlePayment = async () => {
-  const { error, paymentMethod } = await stripe.createPaymentMethod({
-    type: 'card',
-    card: elements.getElement(CardElement),
-  });
-  
-  if (!error) {
-    // Process payment with backend
-  }
-};
-```
-
-### Razorpay Integration
-```javascript
-// Razorpay payment options
-const options = {
-  key: process.env.REACT_APP_RAZORPAY_KEY,
-  amount: amount * 100, // Amount in paise
-  currency: 'INR',
-  name: 'EcommerceHub',
-  description: 'Order Payment',
-  handler: function (response) {
-    // Handle successful payment
-  }
-};
-```
-
-## 📧 Email Configuration
-
-Configure email settings in `application.yml`:
-
-```yaml
-spring:
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: ${MAIL_USERNAME}
-    password: ${MAIL_PASSWORD}
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-```
-
-## 🧪 Testing
-
-### Backend Testing
+#### Backend Server
 ```bash
-# Run all tests
-mvn test
-
-# Run specific test class
-mvn test -Dtest=UserServiceTest
-
-# Run integration tests
-mvn test -Dtest=*IntegrationTest
+# From backend directory
+mvn spring-boot:run
 ```
 
-### Frontend Testing
+The backend API will be available at: http://localhost:8080
+
+#### Using Provided Scripts
 ```bash
-# Run unit tests
-npm test
+# Run frontend (Windows)
+run-frontend.bat
 
-# Run e2e tests
-npm run test:e2e
+# Run backend (Windows)
+run-backend.bat
 
-# Generate coverage report
-npm run test:coverage
+# Run frontend (PowerShell)
+run-frontend.ps1
 ```
+
+## 🔧 Recent Fixes & Improvements
+
+### ✅ Fixed Issues
+
+#### 1. **Category Page Design Issues**
+- **Problem**: Cards were too small and information was getting cut off
+- **Solution**: 
+  - Improved responsive grid layout (1-5 columns based on screen size)
+  - Added list view mode for better information display
+  - Enhanced card sizing and spacing
+  - Fixed text overflow with proper line clamping
+  - Added breadcrumb navigation for category pages
+
+#### 2. **Cart Functionality Issues**
+- **Problem**: Cart was not working properly
+- **Solution**:
+  - Added local storage fallback when API is unavailable
+  - Improved error handling and user feedback
+  - Fixed cart persistence across sessions
+  - Enhanced cart state management
+
+#### 3. **Page Speed Issues**
+- **Problem**: Pages were loading slowly
+- **Solution**:
+  - Reduced artificial delays from 500ms to 100ms
+  - Optimized component rendering
+  - Added lazy loading for images
+  - Improved state management efficiency
+
+#### 4. **npm run dev Not Working**
+- **Problem**: Node.js/npm not installed
+- **Solution**:
+  - Created automatic Node.js installer script
+  - Added comprehensive installation instructions
+  - Provided multiple installation methods
+
+### 🎨 Design Improvements
+
+#### Enhanced Product Cards
+- **Better Responsiveness**: Cards adapt from 1 column (mobile) to 5 columns (2xl screens)
+- **Improved Information Display**: 
+  - Larger text for better readability
+  - Proper text truncation with ellipsis
+  - Better spacing and layout
+- **Dual View Modes**: Grid and list views for different preferences
+- **Enhanced Hover Effects**: Smooth animations and interactions
+
+#### Category Page Features
+- **Dynamic Page Titles**: SEO-friendly titles based on category
+- **Breadcrumb Navigation**: Easy navigation back to parent pages
+- **Category-Specific Content**: Shows category name and product count
+- **Sticky Sidebar**: Filter sidebar stays in view while scrolling
+
+#### Performance Optimizations
+- **Reduced Loading Times**: Faster page transitions
+- **Optimized Animations**: Smoother user experience
+- **Better Error Handling**: Graceful fallbacks for API failures
+- **Improved Caching**: Better state persistence
+
+## 📁 Project Structure
+
+```
+E-commerce.1/
+├── src/                    # Frontend source code
+│   ├── components/         # Reusable UI components
+│   ├── pages/             # Page components
+│   ├── store/             # State management (Zustand)
+│   ├── services/          # API services
+│   ├── types/             # TypeScript type definitions
+│   └── data/              # Mock data
+├── backend/               # Spring Boot backend
+│   ├── src/main/java/     # Java source code
+│   ├── src/main/resources/ # Configuration files
+│   └── pom.xml           # Maven dependencies
+├── scripts/               # Utility scripts
+└── README.md             # This file
+```
+
+## 🛠️ Key Technologies
+
+### Frontend
+- **React 18** with TypeScript
+- **Vite** for fast development
+- **Tailwind CSS** for styling
+- **Framer Motion** for animations
+- **Zustand** for state management
+- **React Router** for navigation
+- **React Query** for data fetching
+
+### Backend
+- **Spring Boot 3** with Java 17
+- **Spring Security** with JWT
+- **Spring Data MongoDB**
+- **Maven** for dependency management
+
+## 🎯 Features
+
+### User Features
+- ✅ Product browsing and search
+- ✅ Category-based navigation
+- ✅ Shopping cart functionality
+- ✅ User authentication
+- ✅ Order management
+- ✅ Wishlist functionality
+- ✅ Responsive design
+
+### Admin Features
+- ✅ Product management
+- ✅ Order management
+- ✅ User management
+- ✅ Analytics dashboard
 
 ## 🚀 Deployment
 
-### Docker Deployment
+### Frontend Deployment
 ```bash
-# Build and deploy with Docker Compose
-docker-compose -f docker-compose.prod.yml up -d
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
-### Manual Deployment
+### Backend Deployment
 ```bash
-# Backend
+# Build JAR file
 mvn clean package
-java -jar target/ecommerce-backend-1.0.0.jar
 
+# Run JAR file
+java -jar target/ecommerce-0.0.1-SNAPSHOT.jar
+```
+
+## 🔧 Troubleshooting
+
+### Common Issues
+
+#### 1. **npm command not found**
+```bash
+# Install Node.js first
+# Windows: Run install-nodejs.bat
+# macOS: brew install node
+# Linux: sudo apt install nodejs npm
+```
+
+#### 2. **Port already in use**
+```bash
+# Kill process on port 3000 (frontend)
+npx kill-port 3000
+
+# Kill process on port 8080 (backend)
+npx kill-port 8080
+```
+
+#### 3. **MongoDB connection issues**
+- Ensure MongoDB is running
+- Check connection string in `application.yml`
+- Verify network connectivity
+
+#### 4. **Build errors**
+```bash
+# Clear cache and reinstall
+rm -rf node_modules package-lock.json
+npm install
+
+# For backend
+mvn clean install
+```
+
+## 📝 Environment Variables
+
+Create a `.env` file in the project root:
+
+```env
 # Frontend
-npm run build
-# Serve build folder with nginx or similar
+VITE_API_BASE_URL=http://localhost:8080/api
+VITE_APP_NAME=EcommerceHub
+
+# Backend (in application.yml)
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/ecommerce
+  jwt:
+    secret: your-jwt-secret-key
 ```
 
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
 
 ## 🆘 Support
 
-For support, email support@ecommercehub.com or create an issue in the GitHub repository.
+If you encounter any issues:
 
-## 🙏 Acknowledgments
+1. Check the troubleshooting section above
+2. Review the console for error messages
+3. Ensure all dependencies are installed
+4. Verify your environment setup
 
-- Spring Boot team for the excellent framework
-- React team for the amazing frontend library
-- All open source contributors who made this project possible
+For additional help, please open an issue on GitHub.

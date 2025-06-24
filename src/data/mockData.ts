@@ -221,6 +221,464 @@ export const products = [
     },
     createdAt: '2024-01-14T12:00:00Z',
     updatedAt: '2024-01-14T12:00:00Z'
+  },
+  {
+    id: '9',
+    name: 'Gaming Mechanical Keyboard',
+    description: 'RGB backlit mechanical keyboard with tactile switches, perfect for gaming and productivity.',
+    price: 129.99,
+    originalPrice: 179.99,
+    image: 'https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=500',
+    images: [
+      'https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=500',
+      'https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg?auto=compress&cs=tinysrgb&w=500'
+    ],
+    category: 'electronics',
+    rating: 4.7,
+    reviewCount: 342,
+    inStock: true,
+    stockQuantity: 85,
+    featured: true,
+    tags: ['gaming', 'mechanical', 'rgb', 'productivity'],
+    brand: 'GameTech',
+    specifications: {
+      'Switch Type': 'Cherry MX Blue',
+      'Backlight': 'RGB',
+      'Layout': 'Full Size',
+      'Connection': 'USB-C',
+      'Compatibility': 'Windows, Mac, Linux'
+    },
+    createdAt: '2024-01-16T09:30:00Z',
+    updatedAt: '2024-01-16T09:30:00Z'
+  },
+  {
+    id: '10',
+    name: 'Wireless Bluetooth Speaker',
+    description: '360-degree sound with deep bass, waterproof design perfect for outdoor adventures.',
+    price: 89.99,
+    originalPrice: 119.99,
+    image: 'https://images.pexels.com/photos/1649771/pexels-photo-1649771.jpeg?auto=compress&cs=tinysrgb&w=500',
+    images: [
+      'https://images.pexels.com/photos/1649771/pexels-photo-1649771.jpeg?auto=compress&cs=tinysrgb&w=500',
+      'https://images.pexels.com/photos/164938/pexels-photo-164938.jpeg?auto=compress&cs=tinysrgb&w=500'
+    ],
+    category: 'electronics',
+    rating: 4.5,
+    reviewCount: 198,
+    inStock: true,
+    stockQuantity: 67,
+    featured: false,
+    tags: ['wireless', 'bluetooth', 'waterproof', 'portable'],
+    brand: 'SoundWave',
+    specifications: {
+      'Battery Life': '12 hours',
+      'Water Rating': 'IPX7',
+      'Connectivity': 'Bluetooth 5.0',
+      'Range': '30 feet',
+      'Weight': '1.2 lbs'
+    },
+    createdAt: '2024-01-17T14:15:00Z',
+    updatedAt: '2024-01-17T14:15:00Z'
+  },
+  {
+    id: '11',
+    name: 'Designer Sunglasses',
+    description: 'Premium polarized sunglasses with UV protection and stylish frame design.',
+    price: 199.99,
+    originalPrice: 299.99,
+    image: 'https://images.pexels.com/photos/701877/pexels-photo-701877.jpeg?auto=compress&cs=tinysrgb&w=500',
+    images: [
+      'https://images.pexels.com/photos/701877/pexels-photo-701877.jpeg?auto=compress&cs=tinysrgb&w=500',
+      'https://images.pexels.com/photos/46710/pexels-photo-46710.jpeg?auto=compress&cs=tinysrgb&w=500'
+    ],
+    category: 'clothing',
+    rating: 4.6,
+    reviewCount: 156,
+    inStock: true,
+    stockQuantity: 42,
+    featured: true,
+    tags: ['designer', 'polarized', 'uv-protection', 'fashion'],
+    brand: 'LuxVision',
+    specifications: {
+      'Lens Material': 'Polarized Glass',
+      'Frame Material': 'Titanium',
+      'UV Protection': '100% UV400',
+      'Weight': '28g',
+      'Warranty': '2 years'
+    },
+    createdAt: '2024-01-18T11:45:00Z',
+    updatedAt: '2024-01-18T11:45:00Z'
+  },
+  {
+    id: '12',
+    name: 'Smart Home Security Camera',
+    description: '4K wireless security camera with night vision, motion detection, and mobile app control.',
+    price: 149.99,
+    originalPrice: 199.99,
+    image: 'https://images.pexels.com/photos/430208/pexels-photo-430208.jpeg?auto=compress&cs=tinysrgb&w=500',
+    images: [
+      'https://images.pexels.com/photos/430208/pexels-photo-430208.jpeg?auto=compress&cs=tinysrgb&w=500'
+    ],
+    category: 'electronics',
+    rating: 4.4,
+    reviewCount: 289,
+    inStock: true,
+    stockQuantity: 38,
+    featured: false,
+    tags: ['security', 'smart-home', '4k', 'wireless'],
+    brand: 'SecureHome',
+    specifications: {
+      'Resolution': '4K Ultra HD',
+      'Night Vision': 'Up to 30ft',
+      'Storage': 'Cloud & Local',
+      'Power': 'Battery/Wired',
+      'App': 'iOS & Android'
+    },
+    createdAt: '2024-01-19T16:20:00Z',
+    updatedAt: '2024-01-19T16:20:00Z'
+  },
+  {
+    id: '13',
+    name: 'Ergonomic Office Chair',
+    description: 'Premium ergonomic office chair with lumbar support, adjustable height, and breathable mesh.',
+    price: 349.99,
+    originalPrice: 449.99,
+    image: 'https://images.pexels.com/photos/2181996/pexels-photo-2181996.jpeg?auto=compress&cs=tinysrgb&w=500',
+    images: [
+      'https://images.pexels.com/photos/2181996/pexels-photo-2181996.jpeg?auto=compress&cs=tinysrgb&w=500',
+      'https://images.pexels.com/photos/1957477/pexels-photo-1957477.jpeg?auto=compress&cs=tinysrgb&w=500'
+    ],
+    category: 'home-garden',
+    rating: 4.8,
+    reviewCount: 445,
+    inStock: true,
+    stockQuantity: 29,
+    featured: true,
+    tags: ['ergonomic', 'office', 'adjustable', 'comfort'],
+    brand: 'ErgoWork',
+    specifications: {
+      'Material': 'Breathable Mesh',
+      'Weight Capacity': '330 lbs',
+      'Height Range': '17"-21"',
+      'Warranty': '5 years',
+      'Assembly': 'Required'
+    },
+    createdAt: '2024-01-20T10:30:00Z',
+    updatedAt: '2024-01-20T10:30:00Z'
+  },
+  {
+    id: '14',
+    name: 'Stainless Steel Water Bottle',
+    description: 'Insulated stainless steel water bottle that keeps drinks cold for 24h or hot for 12h.',
+    price: 34.99,
+    originalPrice: 49.99,
+    image: 'https://images.pexels.com/photos/1000084/pexels-photo-1000084.jpeg?auto=compress&cs=tinysrgb&w=500',
+    images: [
+      'https://images.pexels.com/photos/1000084/pexels-photo-1000084.jpeg?auto=compress&cs=tinysrgb&w=500'
+    ],
+    category: 'sports',
+    rating: 4.7,
+    reviewCount: 523,
+    inStock: true,
+    stockQuantity: 156,
+    featured: false,
+    tags: ['insulated', 'eco-friendly', 'durable', 'sports'],
+    brand: 'HydroLife',
+    specifications: {
+      'Capacity': '32 oz',
+      'Material': '18/8 Stainless Steel',
+      'Insulation': 'Double Wall Vacuum',
+      'Lid Type': 'Leak-proof',
+      'BPA Free': 'Yes'
+    },
+    createdAt: '2024-01-21T13:45:00Z',
+    updatedAt: '2024-01-21T13:45:00Z'
+  },
+  {
+    id: '15',
+    name: 'Wireless Charging Pad',
+    description: 'Fast wireless charging pad compatible with all Qi-enabled devices, sleek design.',
+    price: 39.99,
+    originalPrice: 59.99,
+    image: 'https://images.pexels.com/photos/4219654/pexels-photo-4219654.jpeg?auto=compress&cs=tinysrgb&w=500',
+    images: [
+      'https://images.pexels.com/photos/4219654/pexels-photo-4219654.jpeg?auto=compress&cs=tinysrgb&w=500'
+    ],
+    category: 'electronics',
+    rating: 4.3,
+    reviewCount: 167,
+    inStock: true,
+    stockQuantity: 94,
+    featured: false,
+    tags: ['wireless', 'charging', 'qi-compatible', 'fast-charge'],
+    brand: 'ChargeTech',
+    specifications: {
+      'Output': '15W Fast Charge',
+      'Compatibility': 'Qi-enabled devices',
+      'LED Indicator': 'Yes',
+      'Safety': 'Over-charge protection',
+      'Cable': 'USB-C included'
+    },
+    createdAt: '2024-01-22T08:15:00Z',
+    updatedAt: '2024-01-22T08:15:00Z'
+  },
+  {
+    id: '16',
+    name: 'Artisan Coffee Beans',
+    description: 'Premium single-origin coffee beans, freshly roasted with rich flavor and aroma.',
+    price: 24.99,
+    originalPrice: 34.99,
+    image: 'https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=500',
+    images: [
+      'https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=500',
+      'https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=500'
+    ],
+    category: 'home-garden',
+    rating: 4.9,
+    reviewCount: 678,
+    inStock: true,
+    stockQuantity: 234,
+    featured: true,
+    tags: ['coffee', 'artisan', 'single-origin', 'premium'],
+    brand: 'RoastMaster',
+    specifications: {
+      'Weight': '12 oz',
+      'Roast Level': 'Medium',
+      'Origin': 'Colombian Highlands',
+      'Processing': 'Washed',
+      'Roast Date': 'Within 7 days'
+    },
+    createdAt: '2024-01-23T15:30:00Z',
+    updatedAt: '2024-01-23T15:30:00Z'
+  },
+  {
+    id: '9',
+    name: 'Gaming Mechanical Keyboard',
+    description: 'RGB backlit mechanical keyboard with tactile switches, perfect for gaming and productivity.',
+    price: 129.99,
+    originalPrice: 179.99,
+    image: 'https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=500',
+    images: [
+      'https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=500',
+      'https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg?auto=compress&cs=tinysrgb&w=500'
+    ],
+    category: 'electronics',
+    rating: 4.7,
+    reviewCount: 342,
+    inStock: true,
+    stockQuantity: 85,
+    featured: true,
+    tags: ['gaming', 'mechanical', 'rgb', 'productivity'],
+    brand: 'GameTech',
+    specifications: {
+      'Switch Type': 'Cherry MX Blue',
+      'Backlight': 'RGB',
+      'Layout': 'Full Size',
+      'Connection': 'USB-C',
+      'Compatibility': 'Windows, Mac, Linux'
+    },
+    createdAt: '2024-01-16T09:30:00Z',
+    updatedAt: '2024-01-16T09:30:00Z'
+  },
+  {
+    id: '10',
+    name: 'Wireless Bluetooth Speaker',
+    description: '360-degree sound with deep bass, waterproof design perfect for outdoor adventures.',
+    price: 89.99,
+    originalPrice: 119.99,
+    image: 'https://images.pexels.com/photos/1649771/pexels-photo-1649771.jpeg?auto=compress&cs=tinysrgb&w=500',
+    images: [
+      'https://images.pexels.com/photos/1649771/pexels-photo-1649771.jpeg?auto=compress&cs=tinysrgb&w=500',
+      'https://images.pexels.com/photos/164938/pexels-photo-164938.jpeg?auto=compress&cs=tinysrgb&w=500'
+    ],
+    category: 'electronics',
+    rating: 4.5,
+    reviewCount: 198,
+    inStock: true,
+    stockQuantity: 67,
+    featured: false,
+    tags: ['wireless', 'bluetooth', 'waterproof', 'portable'],
+    brand: 'SoundWave',
+    specifications: {
+      'Battery Life': '12 hours',
+      'Water Rating': 'IPX7',
+      'Connectivity': 'Bluetooth 5.0',
+      'Range': '30 feet',
+      'Weight': '1.2 lbs'
+    },
+    createdAt: '2024-01-17T14:15:00Z',
+    updatedAt: '2024-01-17T14:15:00Z'
+  },
+  {
+    id: '11',
+    name: 'Designer Sunglasses',
+    description: 'Premium polarized sunglasses with UV protection and stylish frame design.',
+    price: 199.99,
+    originalPrice: 299.99,
+    image: 'https://images.pexels.com/photos/701877/pexels-photo-701877.jpeg?auto=compress&cs=tinysrgb&w=500',
+    images: [
+      'https://images.pexels.com/photos/701877/pexels-photo-701877.jpeg?auto=compress&cs=tinysrgb&w=500',
+      'https://images.pexels.com/photos/46710/pexels-photo-46710.jpeg?auto=compress&cs=tinysrgb&w=500'
+    ],
+    category: 'clothing',
+    rating: 4.6,
+    reviewCount: 156,
+    inStock: true,
+    stockQuantity: 42,
+    featured: true,
+    tags: ['designer', 'polarized', 'uv-protection', 'fashion'],
+    brand: 'LuxVision',
+    specifications: {
+      'Lens Material': 'Polarized Glass',
+      'Frame Material': 'Titanium',
+      'UV Protection': '100% UV400',
+      'Weight': '28g',
+      'Warranty': '2 years'
+    },
+    createdAt: '2024-01-18T11:45:00Z',
+    updatedAt: '2024-01-18T11:45:00Z'
+  },
+  {
+    id: '12',
+    name: 'Smart Home Security Camera',
+    description: '4K wireless security camera with night vision, motion detection, and mobile app control.',
+    price: 149.99,
+    originalPrice: 199.99,
+    image: 'https://images.pexels.com/photos/430208/pexels-photo-430208.jpeg?auto=compress&cs=tinysrgb&w=500',
+    images: [
+      'https://images.pexels.com/photos/430208/pexels-photo-430208.jpeg?auto=compress&cs=tinysrgb&w=500'
+    ],
+    category: 'electronics',
+    rating: 4.4,
+    reviewCount: 289,
+    inStock: true,
+    stockQuantity: 38,
+    featured: false,
+    tags: ['security', 'smart-home', '4k', 'wireless'],
+    brand: 'SecureHome',
+    specifications: {
+      'Resolution': '4K Ultra HD',
+      'Night Vision': 'Up to 30ft',
+      'Storage': 'Cloud & Local',
+      'Power': 'Battery/Wired',
+      'App': 'iOS & Android'
+    },
+    createdAt: '2024-01-19T16:20:00Z',
+    updatedAt: '2024-01-19T16:20:00Z'
+  },
+  {
+    id: '13',
+    name: 'Ergonomic Office Chair',
+    description: 'Premium ergonomic office chair with lumbar support, adjustable height, and breathable mesh.',
+    price: 349.99,
+    originalPrice: 449.99,
+    image: 'https://images.pexels.com/photos/2181996/pexels-photo-2181996.jpeg?auto=compress&cs=tinysrgb&w=500',
+    images: [
+      'https://images.pexels.com/photos/2181996/pexels-photo-2181996.jpeg?auto=compress&cs=tinysrgb&w=500',
+      'https://images.pexels.com/photos/1957477/pexels-photo-1957477.jpeg?auto=compress&cs=tinysrgb&w=500'
+    ],
+    category: 'home-garden',
+    rating: 4.8,
+    reviewCount: 445,
+    inStock: true,
+    stockQuantity: 29,
+    featured: true,
+    tags: ['ergonomic', 'office', 'adjustable', 'comfort'],
+    brand: 'ErgoWork',
+    specifications: {
+      'Material': 'Breathable Mesh',
+      'Weight Capacity': '330 lbs',
+      'Height Range': '17"-21"',
+      'Warranty': '5 years',
+      'Assembly': 'Required'
+    },
+    createdAt: '2024-01-20T10:30:00Z',
+    updatedAt: '2024-01-20T10:30:00Z'
+  },
+  {
+    id: '14',
+    name: 'Stainless Steel Water Bottle',
+    description: 'Insulated stainless steel water bottle that keeps drinks cold for 24h or hot for 12h.',
+    price: 34.99,
+    originalPrice: 49.99,
+    image: 'https://images.pexels.com/photos/1000084/pexels-photo-1000084.jpeg?auto=compress&cs=tinysrgb&w=500',
+    images: [
+      'https://images.pexels.com/photos/1000084/pexels-photo-1000084.jpeg?auto=compress&cs=tinysrgb&w=500'
+    ],
+    category: 'sports',
+    rating: 4.7,
+    reviewCount: 523,
+    inStock: true,
+    stockQuantity: 156,
+    featured: false,
+    tags: ['insulated', 'eco-friendly', 'durable', 'sports'],
+    brand: 'HydroLife',
+    specifications: {
+      'Capacity': '32 oz',
+      'Material': '18/8 Stainless Steel',
+      'Insulation': 'Double Wall Vacuum',
+      'Lid Type': 'Leak-proof',
+      'BPA Free': 'Yes'
+    },
+    createdAt: '2024-01-21T13:45:00Z',
+    updatedAt: '2024-01-21T13:45:00Z'
+  },
+  {
+    id: '15',
+    name: 'Wireless Charging Pad',
+    description: 'Fast wireless charging pad compatible with all Qi-enabled devices, sleek design.',
+    price: 39.99,
+    originalPrice: 59.99,
+    image: 'https://images.pexels.com/photos/4219654/pexels-photo-4219654.jpeg?auto=compress&cs=tinysrgb&w=500',
+    images: [
+      'https://images.pexels.com/photos/4219654/pexels-photo-4219654.jpeg?auto=compress&cs=tinysrgb&w=500'
+    ],
+    category: 'electronics',
+    rating: 4.3,
+    reviewCount: 167,
+    inStock: true,
+    stockQuantity: 94,
+    featured: false,
+    tags: ['wireless', 'charging', 'qi-compatible', 'fast-charge'],
+    brand: 'ChargeTech',
+    specifications: {
+      'Output': '15W Fast Charge',
+      'Compatibility': 'Qi-enabled devices',
+      'LED Indicator': 'Yes',
+      'Safety': 'Over-charge protection',
+      'Cable': 'USB-C included'
+    },
+    createdAt: '2024-01-22T08:15:00Z',
+    updatedAt: '2024-01-22T08:15:00Z'
+  },
+  {
+    id: '16',
+    name: 'Artisan Coffee Beans',
+    description: 'Premium single-origin coffee beans, freshly roasted with rich flavor and aroma.',
+    price: 24.99,
+    originalPrice: 34.99,
+    image: 'https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=500',
+    images: [
+      'https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=500',
+      'https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=500'
+    ],
+    category: 'home-garden',
+    rating: 4.9,
+    reviewCount: 678,
+    inStock: true,
+    stockQuantity: 234,
+    featured: true,
+    tags: ['coffee', 'artisan', 'single-origin', 'premium'],
+    brand: 'RoastMaster',
+    specifications: {
+      'Weight': '12 oz',
+      'Roast Level': 'Medium',
+      'Origin': 'Colombian Highlands',
+      'Processing': 'Washed',
+      'Roast Date': 'Within 7 days'
+    },
+    createdAt: '2024-01-23T15:30:00Z',
+    updatedAt: '2024-01-23T15:30:00Z'
   }
 ];
 

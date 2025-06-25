@@ -42,6 +42,7 @@ D:\E-commerce.1\backend\src\main\java\com\ecommerce\service\CartService.java
 D:\E-commerce.1\backend\src\main\java\com\ecommerce\controller\AuthController.java
 D:\E-commerce.1\backend\src\main\java\com\ecommerce\dto\TokenResponse.java
 D:\E-commerce.1\backend\src\main\java\com\ecommerce\entity\Address.java
+D:\E-commerce.1\backend\src\main\java\com\ecommerce\entity\AddressInfo.java
 D:\E-commerce.1\backend\src\main\java\com\ecommerce\repository\AddressRepository.java
 D:\E-commerce.1\backend\src\main\java\com\ecommerce\entity\User.java
 D:\E-commerce.1\backend\src\main\java\com\ecommerce\EcommerceApplication.java

@@ -257,7 +257,7 @@ const Home: React.FC = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 auto-rows-fr">
             {categories.map((category, index) => (
               <motion.div
                 key={category.id}
@@ -266,15 +266,15 @@ const Home: React.FC = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 whileHover={{ y: -8, scale: 1.05 }}
-                className="group"
+                className="group h-full"
               >
                 <Link
                   to={`/category/${category.slug}`}
-                  className="block glass-card text-center h-full hover:shadow-hard transition-all duration-500"
+                  className="block glass-card text-center h-full hover:shadow-hard transition-all duration-500 flex flex-col"
                 >
                   {/* Icon container */}
                   <motion.div
-                    className="relative w-16 h-16 mx-auto mb-6"
+                    className="relative w-16 h-16 mx-auto mt-5 mb-4"
                     whileHover={{ rotate: 360 }}
                     transition={{ duration: 0.8 }}
                   >
@@ -284,27 +284,29 @@ const Home: React.FC = () => {
                     </div>
                   </motion.div>
 
-                  <h3 className="font-bold text-lg text-neutral-900 dark:text-neutral-100 mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                  <h3 className="font-bold text-lg text-neutral-900 dark:text-neutral-100 mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors h-[2.75rem] flex items-center justify-center">
                     {category.name}
                   </h3>
-                  <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">
+                  <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4 h-[1.5rem]">
                     {category.productCount} products
                   </p>
 
                   {/* Progress indicator */}
-                  <motion.div
-                    className="w-full h-1 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ delay: index * 0.1 + 0.5 }}
-                  >
+                  <div className="mt-auto pb-5">
                     <motion.div
-                      className="h-full bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full"
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${Math.min(category.productCount / 50 * 100, 100)}%` }}
-                      transition={{ duration: 1, delay: index * 0.1 + 0.7 }}
-                    />
-                  </motion.div>
+                      className="w-full h-1 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden"
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      transition={{ delay: index * 0.1 + 0.5 }}
+                    >
+                      <motion.div
+                        className="h-full bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full"
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${Math.min(category.productCount / 50 * 100, 100)}%` }}
+                        transition={{ duration: 1, delay: index * 0.1 + 0.7 }}
+                      />
+                    </motion.div>
+                  </div>
                 </Link>
               </motion.div>
             ))}
@@ -321,7 +323,7 @@ const Home: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-20"
+            className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-neutral-100 mb-6">
               <span className="gradient-text">Featured</span> Products
@@ -336,6 +338,7 @@ const Home: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
+            className="container mx-auto px-4"
           >
             <ProductGrid products={featuredProducts} />
           </motion.div>

@@ -21,11 +21,12 @@ import { useCartStore } from '../store/cartStore';
 import { useThemeStore } from '../store/themeStore';
 import { categories } from '../data/mockData';
 import { motion, AnimatePresence } from 'framer-motion';
-import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton, useUser } from '@clerk/clerk-react';
+import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from '@clerk/clerk-react';
 
 const Header: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // isUserMenuOpen is used in the handleClickOutside function
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -36,7 +37,6 @@ const Header: React.FC = () => {
 
   const { getTotalItems, toggleCart } = useCartStore();
   const { isDark, toggleTheme } = useThemeStore();
-  const userClerk = useUser();
 
   // Handle scroll effect for glassmorphism
   useEffect(() => {
@@ -371,23 +371,24 @@ const Header: React.FC = () => {
                   {/* Categories */}
                   <div>
                     <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100 mb-4">Categories</h3>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-2 gap-3 auto-rows-fr">
                       {categories.slice(0, 6).map((category, index) => (
                         <motion.div
                           key={category.id}
                           initial={{ opacity: 0, x: -20 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: index * 0.05 }}
+                          className="h-full"
                         >
                           <Link
                             to={`/category/${category.slug}`}
-                            className="flex flex-col items-center justify-center p-3 bg-white/10 dark:bg-black/10 rounded-lg hover:bg-white/20 dark:hover:bg-black/20 transition-colors"
+                            className="flex flex-col items-center justify-center p-3 bg-white/10 dark:bg-black/10 rounded-lg hover:bg-white/20 dark:hover:bg-black/20 transition-colors h-full"
                             onClick={() => setIsMenuOpen(false)}
                           >
-                            <div className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                            <div className="text-sm font-medium text-neutral-700 dark:text-neutral-300 h-[1.5rem] flex items-center justify-center">
                               {category.name}
                             </div>
-                            <div className="text-xs text-neutral-500 dark:text-neutral-400">
+                            <div className="text-xs text-neutral-500 dark:text-neutral-400 h-[1.25rem]">
                               {category.productCount} items
                             </div>
                           </Link>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Star, Heart, ShoppingCart, Eye, Zap, Badge, Sparkles } from 'lucide-react';
+import { Star, Heart, ShoppingCart, Eye, Zap, Sparkles } from 'lucide-react';
 import { Product } from '../types';
 import { useCartStore } from '../store/cartStore';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -72,20 +72,20 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0, viewMode 
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
       className={`group relative ${
-        isListView ? 'flex flex-row' : ''
+        isListView ? 'flex flex-row' : 'h-full w-full'
       }`}
     >
-      <div className={`card-interactive overflow-hidden backdrop-blur-sm ${
-        isListView ? 'flex flex-row w-full' : ''
+      <div className={`card-interactive overflow-hidden backdrop-blur-sm h-full w-full ${
+        isListView ? 'flex flex-row' : ''
       }`}>
-        <Link to={`/product/${product.id}`} className={`block ${
-          isListView ? 'flex flex-row w-full' : ''
+        <Link to={`/product/${product.id}`} className={`block h-full w-full ${
+          isListView ? 'flex flex-row' : ''
         }`}>
           {/* Image container with enhanced effects */}
           <div className={`relative overflow-hidden bg-neutral-100 dark:bg-neutral-800 ${
             isListView 
               ? 'w-48 h-32 flex-shrink-0 rounded-l-2xl' 
-              : 'rounded-t-2xl'
+              : 'rounded-t-2xl h-60 w-full'
           }`}>
             {/* Loading skeleton */}
             {!imageLoaded && (
@@ -204,10 +204,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0, viewMode 
           </div>
 
           {/* Product information */}
-          <div className={`space-y-4 ${
+          <div className={`space-y-3 ${
             isListView 
               ? 'p-6 flex-1 flex flex-col justify-between' 
-              : 'p-6'
+              : 'p-5 flex-1 flex flex-col justify-between w-full'
           }`}>
             {/* Brand and rating */}
             <div className="flex items-center justify-between">
@@ -228,22 +228,22 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0, viewMode 
             </div>
 
             {/* Product name */}
-            <h3 className={`font-bold text-neutral-900 dark:text-neutral-100 line-clamp-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300 leading-tight ${
+            <h3 className={`font-bold text-neutral-900 dark:text-neutral-100 line-clamp-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300 leading-tight min-h-[2.75rem] flex items-center ${
               isListView ? 'text-xl' : 'text-lg'
             }`}>
               {product.name}
             </h3>
 
             {/* Description */}
-            <p className={`text-neutral-600 dark:text-neutral-400 line-clamp-2 leading-relaxed ${
+            <p className={`text-neutral-600 dark:text-neutral-400 line-clamp-2 leading-relaxed min-h-[2.75rem] ${
               isListView ? 'text-base' : 'text-sm'
             }`}>
               {product.description}
             </p>
 
             {/* Price and action */}
-            <div className={`flex items-center justify-between ${
-              isListView ? 'pt-4' : 'pt-2'
+            <div className={`flex items-center justify-between min-h-[3.5rem] ${
+              isListView ? 'pt-2' : 'pt-1'
             }`}>
               <div className="flex items-center space-x-3">
                 <span className={`font-bold text-neutral-900 dark:text-neutral-100 ${
@@ -299,13 +299,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0, viewMode 
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               disabled={!product.inStock}
-              className={`md:hidden w-full flex items-center justify-center space-x-2 py-3 rounded-xl font-medium transition-all duration-300 ${
+              className={`md:hidden w-full flex items-center justify-center space-x-2 py-2 rounded-xl font-medium transition-all duration-300 h-[2.75rem] ${
                 product.inStock
                   ? 'bg-gradient-to-r from-primary-600 to-secondary-600 text-white hover:from-primary-700 hover:to-secondary-700'
                   : 'bg-neutral-200 dark:bg-neutral-700 text-neutral-500 dark:text-neutral-400 cursor-not-allowed'
               }`}
             >
-              <ShoppingCart className="h-5 w-5" />
+              <ShoppingCart className="h-4 w-4" />
               <span>{product.inStock ? 'Add to Cart' : 'Out of Stock'}</span>
             </motion.button>
           </div>

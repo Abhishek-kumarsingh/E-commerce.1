@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useParams } from 'react-router-dom';
-import { Filter, Grid, List, SortAsc, Search, X, Sparkles, Zap, TrendingUp, ArrowLeft } from 'lucide-react';
+import { Filter, Grid, List, SortAsc, Search, X } from 'lucide-react';
 import { products, categories } from '../data/mockData';
 import { Product, FilterOptions } from '../types';
 import ProductGrid from '../components/ProductGrid';
 import FilterSidebar from '../components/FilterSidebar';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 
 const Products: React.FC = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const { slug } = useParams<{ slug: string }>();
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(products);
   const [filters, setFilters] = useState<FilterOptions>({});
@@ -47,7 +47,11 @@ const Products: React.FC = () => {
 
       // Category filter
       if (filters.category) {
-        filtered = filtered.filter(product => product.category === filters.category);
+        if (Array.isArray(filters.category)) {
+          filtered = filtered.filter(product => filters.category!.includes(product.category));
+        } else {
+          filtered = filtered.filter(product => product.category === filters.category);
+        }
       }
 
       // Price range filter
@@ -168,9 +172,9 @@ const Products: React.FC = () => {
               </motion.div>
             )}
 
-            <div className="text-center mb-8">
+            <div className="text-center mb-12">
               <motion.h1 
-                className="text-4xl md:text-5xl font-bold gradient-text mb-4"
+                className="text-4xl md:text-5xl font-bold gradient-text mb-6"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
@@ -183,7 +187,7 @@ const Products: React.FC = () => {
                 }
               </motion.h1>
               <motion.p 
-                className="text-lg text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto"
+                className="text-lg md:text-xl text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto leading-relaxed"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
@@ -199,19 +203,19 @@ const Products: React.FC = () => {
 
             {/* Search Bar */}
             <motion.div 
-              className="max-w-2xl mx-auto mb-8"
+              className="max-w-3xl mx-auto mb-12"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <div className="relative">
+              <div className="relative shadow-lg">
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-neutral-400" />
                 <input
                   type="text"
                   placeholder="Search products, brands, or categories..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-12 pr-4 py-4 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm border border-neutral-200 dark:border-neutral-700 rounded-2xl text-neutral-900 dark:text-neutral-100 placeholder-neutral-500 dark:placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
+                  className="w-full pl-12 pr-4 py-5 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-sm border border-neutral-200 dark:border-neutral-700 rounded-2xl text-neutral-900 dark:text-neutral-100 placeholder-neutral-500 dark:placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
                 />
               </div>
             </motion.div>
@@ -377,12 +381,14 @@ const Products: React.FC = () => {
             </div>
 
             {/* Products Grid */}
-            <div className="flex-1">
-              <ProductGrid 
-                products={filteredProducts} 
-                loading={loading} 
-                viewMode={viewMode}
-              />
+            <div className="flex-1 w-full">
+              <div className="container mx-auto px-4">
+                <ProductGrid 
+                  products={filteredProducts} 
+                  loading={loading} 
+                  viewMode={viewMode}
+                />
+              </div>
             </div>
           </div>
 

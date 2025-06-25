@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useParams } from 'react-router-dom';
-import { Filter, Grid, List, SortAsc, Search, X } from 'lucide-react';
+import { Filter, Grid, List, SortAsc, Search, X } from 'lucide// Brand filter
+if (filters.brand) {
+  filtered = filtered.filter(product => product.brand === filters.brand);
+}
+if (filters.brand) {
+  if (Array.isArray(filters.brand)) {
+    filtered = filtered.filter(product => filters.brand!.includes(product.brand));
+  } else {
+    filtered = filtered.filter(product => product.brand === filters.brand);
+  }
+}
+-react';
 import { products, categories } from '../data/mockData';
 import { Product, FilterOptions } from '../types';
 import ProductGrid from '../components/ProductGrid';

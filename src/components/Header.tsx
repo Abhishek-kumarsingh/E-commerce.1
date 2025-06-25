@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { useCartStore } from '../store/cartStore';
 import { useThemeStore } from '../store/themeStore';
+import { useAuthStore } from '../store/authStore';
 import { categories } from '../data/mockData';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from '@clerk/clerk-react';
@@ -37,6 +38,7 @@ const Header: React.FC = () => {
 
   const { getTotalItems, toggleCart } = useCartStore();
   const { isDark, toggleTheme } = useThemeStore();
+  const { isAuthenticated } = useAuthStore();
 
   // Handle scroll effect for glassmorphism
   useEffect(() => {
@@ -72,7 +74,19 @@ const Header: React.FC = () => {
     }
   };
 
-  
+  // Handler for checkout navigation
+  const handleCheckout = (e?: React.MouseEvent) => {
+    if (e) e.preventDefault();
+    if (getTotalItems() === 0) {
+      // Optionally show a toast or feedback
+      return;
+    }
+    if (isAuthenticated) {
+      navigate('/checkout');
+    } else {
+      navigate('/login', { state: { from: '/checkout' } });
+    }
+  };
 
   return (
     <>
@@ -338,14 +352,13 @@ const Header: React.FC = () => {
                       <ShoppingCart className="h-5 w-5" />
                       <span className="font-medium">Cart ({getTotalItems()})</span>
                     </motion.button>
-                    <Link
-                      to="/checkout"
-                      onClick={() => setIsMenuOpen(false)}
+                    <button
+                      onClick={(e) => { setIsMenuOpen(false); handleCheckout(e); }}
                       className="flex items-center justify-center space-x-2 p-3 bg-secondary-600 text-white rounded-lg hover:bg-secondary-700 transition-colors"
                     >
                       <CreditCard className="h-5 w-5" />
                       <span className="font-medium">Checkout</span>
-                    </Link>
+                    </button>
                   </div>
                   
                   {/* Additional quick links */}

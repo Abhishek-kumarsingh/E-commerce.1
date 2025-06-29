@@ -1,0 +1,39 @@
+{
+    "version": 2,
+    "builds": [
+        {
+            "src": "package.json",
+            "use": "@vercel/static-build",
+            "config": {
+                "distDir": "dist"
+            }
+        }
+    ],
+    "routes": [
+        {
+            "src": "/api/(.*)",
+            "dest": "https://your-backend-url.herokuapp.com/api/$1"
+        },
+        {
+            "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))",
+            "dest": "/$1"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/index.html"
+        }
+    ],
+    "env": {
+        "REACT_APP_API_URL": "@react_app_api_url",
+        "REACT_APP_CLERK_PUBLISHABLE_KEY": "@react_app_clerk_publishable_key"
+    },
+    "build": {
+        "env": {
+            "REACT_APP_API_URL": "@react_app_api_url",
+            "REACT_APP_CLERK_PUBLISHABLE_KEY": "@react_app_clerk_publishable_key"
+        }
+    },
+    "installCommand": "npm ci && npm install --save-dev terser",
+    "buildCommand": "npm run build",
+    "framework": "vite"
+}

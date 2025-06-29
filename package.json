@@ -3,14 +3,14 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:vercel": "npx update-browserslist-db && vite build",
+    "build:vercel": "npx update-browserslist-db && VITE_CLERK_PUBLISHABLE_KEY=pk_test_c2luY2VyZS1yYXR0bGVyLTgwLmNsZXJrLmFjY291bnRzLmRldiQ vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest",
     "test:run": "vitest run",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
-    "vercel-build": "npm install --save-dev terser && npx update-browserslist-db && vite build"
+    "vercel-build": "npm install --save-dev terser && npx update-browserslist-db && VITE_CLERK_PUBLISHABLE_KEY=pk_test_c2luY2VyZS1yYXR0bGVyLTgwLmNsZXJrLmFjY291bnRzLmRldiQ vite build"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",

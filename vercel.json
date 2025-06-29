@@ -22,5 +22,12 @@
         "VITE_API_BASE_URL": "https://your-backend-url.herokuapp.com/api",
         "VITE_CLERK_PUBLISHABLE_KEY": "pk_test_c2luY2VyZS1yYXR0bGVyLTgwLmNsZXJrLmFjY291bnRzLmRldiQ",
         "VITE_NODE_ENV": "production"
+    },
+    "build": {
+        "env": {
+            "VITE_API_BASE_URL": "https://your-backend-url.herokuapp.com/api",
+            "VITE_CLERK_PUBLISHABLE_KEY": "pk_test_c2luY2VyZS1yYXR0bGVyLTgwLmNsZXJrLmFjY291bnRzLmRldiQ",
+            "VITE_NODE_ENV": "production"
+        }
     }
 }

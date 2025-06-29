@@ -10,6 +10,16 @@ const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 // Check if we're in development mode
 const isDevelopment = import.meta.env.DEV;
 
+// Debug environment variables in console
+console.log('Environment:', {
+  isDev: import.meta.env.DEV,
+  isProd: import.meta.env.PROD,
+  mode: import.meta.env.MODE,
+  baseUrl: import.meta.env.VITE_API_BASE_URL,
+  hasClerkKey: !!import.meta.env.VITE_CLERK_PUBLISHABLE_KEY,
+  clerkKey: import.meta.env.VITE_CLERK_PUBLISHABLE_KEY,
+});
+
 // Only throw an error in development mode, use a fallback in production
 if (!PUBLISHABLE_KEY && isDevelopment) {
   console.error("Missing Clerk Publishable Key - Authentication features will not work");
